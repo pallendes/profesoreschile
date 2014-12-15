@@ -1,4 +1,6 @@
 <!-- footer -->
+            </div>
+        </section>
         <footer id="footer">
             <div class="footer-widget">
                 <div class="container">
@@ -50,9 +52,9 @@
         <!-- /scripts -->
         <script type="text/javascript">
 
-            function submitForm(){
-                $('#searchForm').submit();
-            }
+                                                function submitForm() {
+                                                    $('#searchForm').submit();
+                                                }
 
         </script>
         <!-- /scripts -->

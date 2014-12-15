@@ -35,7 +35,7 @@
         <section id="registro">
             <div class="col-sm-5 col-sm-offset-1">
                 <div class="formulario-registro">
-                    <h2>Regístrate como usuario</h2>
+                    <h3>Regístrate como usuario</h3>
                     <p><small>(*)Todos los campos son obligatorios</small></p>
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
@@ -84,7 +84,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <button type="button" id="registroUsuario" class="btn btn-default boton">Registrarme como Usuario</button>
+                            <button type="button" id="registroUsuario" class="btn btn-primary">Registrarme como Usuario</button>
                         </div>
                         <div class="col-sm-6">
                             <p>
@@ -100,7 +100,7 @@
                 <h2 class="registro-o">Ó</h2>
             </div>
             <div class="col-sm-5">
-                <h2>¡Regístrate como profesor e imparte Clases Particulares!</h2>
+                <h3>¡Regístrate como profesor e imparte Clases Particulares!</h3>
                 <div class="row">
                     <div class="col-sm-2">
                         <img src="<?php echo Yii::app()->request->baseUrl ?>/public/img/icono.png" alt="icono" height="80">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-3">
-                        <a href="<?php echo CController::createUrl('Personas/Paso1') ?>" id="registroProfesor" class="btn btn-default boton">Comenzar proceso de registro <i class="fa fa-angle-double-right"></i></a>
+                        <a href="<?php echo CController::createUrl('Personas/Paso1') ?>" id="registroProfesor" class="btn btn-primary">Comenzar proceso de registro <i class="fa fa-angle-double-right"></i></a>
                     </div>
                 </div>
             </div>

@@ -18,8 +18,7 @@ $this->breadcrumbs = array(
     </div>
     <div class="col-sm-8">
         <div class="informacion-perfil">
-            <div class="titulo-perfil">Información del Perfil</div>
-            <h2><?php echo $model->personas->usuario ?></h2>
+            <h3><?php echo $model->personas->usuario ?></h3>
             <div class="perfil-stars">
                 <?php
                 if ($model->vecesCalificado > 0) {
@@ -42,11 +41,11 @@ $this->breadcrumbs = array(
                     </ul>
                 </div>
             </div>
-            <h4><small>(<?php echo $model->vecesCalificado ?>) Veces Calificado </small></h4>
-            <span>
-                <span>$4990</span> <small>x Hora</small>
-                <button class="btn btn-default contratar"><i class="fa fa-usd"></i> Contratar</button>
-            </span>
+            <h5><small>(<?php echo $model->vecesCalificado ?>) Veces Calificado </small></h5>
+            <div class="informacion-perfil-contratar">
+                <span>$<?php echo $model->tarifa ?></span> <small> x Hora</small>&nbsp;
+                <button class="btn btn-primary"><i class="fa fa-usd"></i> Contratar</button>
+            </div>
             <br>
             <strong>Disponibilidad Horaria: </strong><?php echo $model->disponibilidad ?>
         </div>
@@ -55,61 +54,69 @@ $this->breadcrumbs = array(
 <!--category-tab-->
 
 <div class="row">
-    <div class="category-tab shop-details-tab">
-        <div class="col-sm-12">
-            <ul class="nav nav-tabs">
+    <div class="col-sm-12">
+        <div role="tabpanel" class="informacion-perfil-tabs">
+
+            <!-- nav-tabs -->
+            <ul class="nav nav-tabs nav-justified">
                 <li><a href="#materias" data-toggle="tab">Materias</a></li>
                 <li><a href="#descripcion" data-toggle="tab">Descripción</a></li>
                 <li class="active"><a href="#comentarios" data-toggle="tab">Comentarios (<?php echo sizeof($model->comentarios) ?>)</a></li>
             </ul>
-        </div>
-        <div class="tab-content">
-            <div class="tab-pane fade" id="materias" >
-                <?php if (!is_null($model->profesoresconocimientos)): ?>
-                    <div class="contenido-tab">
-                        <strong>Hago Clases de: </strong>
-                        <ol>
-                            <?php foreach ($model->profesoresconocimientos as $pConocimiento): ?>
-                                <li><?php echo $pConocimiento->conocimientos->conocimiento ?></li>
-                            <?php endforeach; ?>
-                        </ol>
+            <!-- nav-tabs -->
+
+            <div class="tab-content">
+                <div class="tab-pane fade" id="materias" >
+                    <div class="perfil-tab-content">
+                        <?php if (!is_null($model->profesoresconocimientos)): ?>
+                            <div class="contenido-tab">
+                                <strong>Hago Clases de: </strong>
+                                <ol>
+                                    <?php foreach ($model->profesoresconocimientos as $pConocimiento): ?>
+                                        <li><?php echo $pConocimiento->conocimientos->conocimiento ?></li>
+                                    <?php endforeach; ?>
+                                </ol>
+                            </div>
+                        <?php endif ?>
                     </div>
-                <?php endif ?>
+                </div>
+
+                <div class="tab-pane fade" id="descripcion" >
+                    <div class="perfil-tab-content">
+                        <p class="perfil-padding">
+                            <?php echo $model->descripcion ?>
+                            <br>
+                            <strong>Ubicación: </strong>
+                            <?php echo 'Región ' . $model->personas->comuna->provincia->region->region ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade active in" id="comentarios" >
+                    <div class="perfil-tab-content">
+                        <!-- comentarios -->
+                        <?php $this->renderPartial('_comments', array('model' => $comentarios, 'pages' => $pages)) ?>
+                        <!-- /comentarios -->
+
+                        <p><b>Escribe tus comentarios</b></p>
+
+                        <?php if (!Yii::app()->user->isGuest): ?>
+                            <?php echo CHtml::beginForm(CController::createUrl('comentarios/nuevo')) ?>
+                            <textarea name="comentario" required class="form-control"></textarea>
+                            <input type="hidden" name="idProfesor" value="<?php echo $model->idProfesor ?>" >
+                            <!-- <input type="hidden" name="usuario" value="<?php //echo $model->idProfesor            ?>" -->
+                            <button type="submit" class="btn btn-primary pull-right">
+                                Enviar Comentario
+                            </button>
+                            <?php echo CHtml::endForm() ?> 
+                        <?php else: ?>
+                            <a href="<?php echo Yii::app()->request->baseUrl . '/site/login' ?>" class="btn btn-primary">
+                                Logéate para comentar
+                            </a>
+                        <?php endif ?>
+                    </div>
+                </div>
+
             </div>
-
-            <div class="tab-pane fade" id="descripcion" >
-                <p class="perfil-padding">
-                    <?php echo $model->descripcion ?>
-                    <br>
-                    <strong>Ubicación: </strong>
-                        <?php echo 'Región '.$model->personas->comuna->provincia->region->region ?>
-                </p>
-            </div>
-
-            <div class="tab-pane fade active in" id="comentarios" >
-
-                <!-- comentarios -->
-                <?php $this->renderPartial('_comments', array('model' => $comentarios, 'pages' => $pages)) ?>
-                <!-- /comentarios -->
-
-                <p><b>Escribe tus comentarios</b></p>
-
-                <?php if (!Yii::app()->user->isGuest): ?>
-                    <?php echo CHtml::beginForm(CController::createUrl('comentarios/nuevo')) ?>
-                    <textarea name="comentario" required></textarea>
-                    <input type="hidden" name="idProfesor" value="<?php echo $model->idProfesor ?>" >
-                    <!-- <input type="hidden" name="usuario" value="<?php //echo $model->idProfesor      ?>" -->
-                    <button type="submit" class="btn btn-default pull-right">
-                        Enviar Comentario
-                    </button>
-                    <?php echo CHtml::endForm() ?> 
-                <?php else: ?>
-                    <a href="<?php echo Yii::app()->request->baseUrl.'/site/login' ?>" class="btn btn-default boton">
-                        Logéate para comentar
-                    </a>
-                <?php endif ?>
-            </div>
-
         </div>
     </div>
-</div>

@@ -52,8 +52,8 @@ return array(
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=profesoresdb',
             'emulatePrepare' => true,
-            'username' => 'belial',
-            'password' => '123',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8', 'enableProfiling' => true,
             'enableParamLogging' => true,
         ),

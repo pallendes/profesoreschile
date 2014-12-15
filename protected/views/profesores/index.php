@@ -6,30 +6,32 @@ $this->breadcrumbs = array(
     'Profesores',
 );
 ?>
+
 <div class="row">
     <?php if (!empty($model)): ?>
-        <div class="features_items">
+        <div id="profesores-items">
             <?php foreach ($model as $item): ?>
-                <?php //$itemPersona = $item->personas ?>
                 <div class="col-sm-3">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
+                    <div class="panel panel-default item">
+                        <div class="item-content">
+                            <div class="panel-body">
                                 <?php if (!is_null($item->personas->foto)): ?>
-                                    <?php echo CHtml::image(CController::createUrl('displaythumb') . '/' . $item->rut, '', array('class' => 'img-responsive')) ?>
+                                    <?php echo CHtml::image(CController::createUrl('displaythumb') . '/' . $item->rut, '', array('class' => 'img-responsive imagen-perfil')) ?>
                                 <?php else: ?>
                                     <img src="holder.js/100%x200/text:Imagen no disponible" alt="" />
                                 <?php endif ?>
-                                <h2><?php echo $item->personas->usuario ?> </h2>
-                                <?php
-                                if ($item->vecesCalificado > 0) {
-                                    $nota = round($item->totalCalificaciones / $item->vecesCalificado);
-                                } else {
-                                    $nota = 0;
-                                }
-                                ?>
-                                <div class="stars">
-                                    <ul class="text-center">
+                            </div>
+                            <div class="panel-footer">
+                                <div class="contenido-item">
+                                    <h4><?php echo $item->personas->usuario ?> </h4>
+                                    <?php
+                                    if ($item->vecesCalificado > 0) {
+                                        $nota = round($item->totalCalificaciones / $item->vecesCalificado);
+                                    } else {
+                                        $nota = 0;
+                                    }
+                                    ?>
+                                    <ul class="stars">
                                         <?php for ($i = 1; $i <= 7; $i++): ?>
                                             <?php if ($i <= $nota): ?>
                                                 <li><i class="fa fa-star"></i></li>
@@ -38,24 +40,22 @@ $this->breadcrumbs = array(
                                             <?php endif ?>
                                         <?php endfor ?>
                                     </ul>
+                                    <p class="center-align">
+                                        <small>(<?php echo $item->vecesCalificado ?>) Veces Calificado</small>
+                                    </p>
                                 </div>
-                                <span class="small-text">(<?php echo $item->vecesCalificado ?>) Veces Calificado</span>
-                                <p><strong>Hago Clases de:</strong>
+                            </div>
+                        </div>
+                        <div class="item-overlay">
+                            <div class="item-overlay-content">
+                                <h4><?php echo $item->personas->usuario ?></h4>
+                                <p>
+                                    <strong>Hago Clases de:</strong>
                                     <?php foreach ($item->profesoresconocimientos as $pConocimiento) : ?>
                                         <?php echo $pConocimiento->conocimientos->conocimiento . ', ' ?>
                                     <?php endforeach; ?>
                                 </p>
-                            </div>
-                            <div class="product-overlay">
-                                <div class="overlay-content">
-                                    <h2><?php echo $item->personas->usuario ?></h2>
-                                    <p><strong>Hago Clases de:</strong>
-                                        <?php foreach ($item->profesoresconocimientos as $pConocimiento) : ?>
-                                            <?php echo $pConocimiento->conocimientos->conocimiento . ', ' ?>
-                                        <?php endforeach; ?>
-                                    </p>
-                                    <a href="<?php echo Yii::app()->request->baseUrl . '/profesores/perfil/' . $item->idProfesor ?>" class="btn btn-default button"><i class="fa fa-user"></i> Ver Perfil</a>
-                                </div>
+                                <a href="<?php echo Yii::app()->request->baseUrl . '/profesores/perfil/' . $item->idProfesor ?>" class="btn btn-default item-overlay-button"><i class="fa fa-user"></i> Ver Perfil</a>
                             </div>
                         </div>
                     </div>

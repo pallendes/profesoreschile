@@ -1,4 +1,4 @@
-<?php
+Pe<?php
 
 /**
  * This is the model class for table "personas".
@@ -46,6 +46,7 @@ class Personas extends CActiveRecord {
         return array(
             array('rut, nombres, paterno, usuario, pass, email', 'required', 'message' => 'El campo {attribute} es obligatorio.'),
             array('idComuna', 'numerical', 'integerOnly' => true),
+            array('idComuna', 'required', 'message' => 'El campo {attribute} es obligatorio.', 'on' => 'update'),
             array('email', 'email', 'message' => 'El email ingresado no es válido.'),
             array('rut', 'length', 'max' => 12, 'message' => 'El número ingresado es demasiado largo.'),
             array('rut', 'validateRut'),
@@ -77,7 +78,7 @@ class Personas extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'comuna' => array(self::BELONGS_TO, 'Comunas', 'idComuna'),
-            'profesores' => array(self::HAS_MANY, 'Profesores', 'rut'),
+            'profesor' => array(self::HAS_ONE, 'Profesores', 'rut'),
             'usuarioses' => array(self::HAS_MANY, 'Usuarios', 'rut'),
         );
     }

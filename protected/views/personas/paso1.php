@@ -8,7 +8,7 @@
     <section id="registro">
         <div class="col-sm-6 col-sm-offset-3">
             <div class="formulario-registro">
-                <h2>Paso 1. Completa tus datos personales</h2>
+                <h3>Paso 1. Completa tus datos personales</h3>
                 <p><small>(*)Todos los campos son obligatorios</small></p>
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
@@ -73,7 +73,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm-6 pull-right">
-                        <button type="submit" id="registroUsuario" class="btn btn-default boton pull-right">Continuar al Paso 2 <i class="fa fa-angle-double-right"></i></button>
+                        <button type="submit" id="registroUsuario" class="btn btn-primary pull-right">Continuar al Paso 2 <i class="fa fa-angle-double-right"></i></button>
                     </div>
                 </div>
                 <div class="row">                  

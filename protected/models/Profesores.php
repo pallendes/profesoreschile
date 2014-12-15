@@ -1,4 +1,4 @@
-<?php
+Pro<?php
 
 /**
  * This is the model class for table "profesores".
@@ -59,7 +59,7 @@ class Profesores extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'comentarios' => array(self::HAS_MANY, 'Comentarios', 'idProfesor'),
-            'idEstadoCuenta0' => array(self::BELONGS_TO, 'Estadoscuentas', 'idEstadoCuenta'),
+            'estadocuenta' => array(self::BELONGS_TO, 'Estadoscuentas', 'idEstadoCuenta'),
             'personas' => array(self::BELONGS_TO, 'Personas', 'rut'),
             'profesoresconocimientos' => array(self::HAS_MANY, 'Profesoresconocimientos', 'idProfesor'),
             'registrocontrataciones' => array(self::HAS_MANY, 'Registrocontrataciones', 'idProfesor'),

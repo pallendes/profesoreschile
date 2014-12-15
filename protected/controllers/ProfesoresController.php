@@ -1,9 +1,11 @@
-<?php
+action<?php
 
 class ProfesoresController extends Controller {
 
     public $mensaje;
     public $activeItem = 'profesores';
+    const TOTAL_CAMPOS_PERSONAS = 17;
+    const TOTAL_CAMPOS_PROFESORES = 9;
 
     /**
      * @return array action filters
@@ -24,7 +26,7 @@ class ProfesoresController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'DisplayThumb', 'paso3', 'cargarconocimientos',
-                    'perfil', 'find', 'nuevocomentario', 'search'),
+                    'perfil', 'find', 'nuevocomentario', 'search', 'admPerfil', 'updatepersonaldata', 'UpdatePerfilDocente'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -55,10 +57,10 @@ class ProfesoresController extends Controller {
             $criteria->compare('personas.direccion', $keyword, true, 'OR');
             $criteria->order = '(totalCalificaciones/vecescalificado) DESC';
             $criteria->distinct = true;
-            if($keyword !== '')
+            if ($keyword !== '')
                 Yii::app()->user->setFlash('mensajeGlobal', 'Mostrando resultados que coincidan con la palabra "' . $keyword . '"');
         }
-        
+
         $count = Profesores::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 8;
@@ -95,6 +97,61 @@ class ProfesoresController extends Controller {
             'comentarios' => $comentarios,
             'pages' => $pages
         ));
+    }
+
+    /*
+     * Muestra la vista de administracion del perfil
+     */
+    public function actionAdmPerfil($id) {
+        $this->layout = '//layouts/admPerfil';
+
+        $model = $this->loadModel($id);
+        $persona = Personas::model()->findByPk($model->rut); 
+       
+        Yii::app()->user->setFlash('porcCompletado',
+                'Tienes un '.$this->porcPerfilCompletado(sizeof($persona->getAttributes()), sizeof($model->getAttributes())).'% de tu perfil Completado.');
+        $this->render('admperfil', array('model' => $model, 'persona' => $persona));
+        
+    }
+    
+    /*
+     * Actualiza los datos en el modelo Profesores
+     */
+    public function actionUpdatePerfilDocente($id){
+        $this->layout = '//layouts/admPerfil';
+        
+        $model = $this->loadModel($id);
+        
+        if(isset($_POST['Profesores'])){
+            $model->attributes = $_POST['Profesores'];
+            if($model->save(false)){
+                Yii::app()->user->setFlash('admPerfil', 'Los cambios de tu información personal han sido almacenados.');
+                $this->redirect(array('admPerfil', 'id' => $id));
+            }
+        }
+    }
+
+    /*
+     * Actualiza los datos en el modelo Personas puesto que el dicha tabla residen 
+     * los datos personales del profesor
+     */
+    public function actionUpdatePersonalData($id) {
+        $this->layout = '//layouts/admPerfil';
+
+        $model = $this->loadModel($id);
+        $personaModel = Personas::model()->findByPk($model->rut);
+
+        $this->performAjaxValidation($personaModel);
+
+        if (isset($_POST['Personas'])) {
+            $personaModel->attributes = $_POST['Personas'];
+            if ($personaModel->save()) {
+                Yii::app()->user->setFlash('admPerfil', 'Los cambios de tu información personal han sido almacenados.');
+                $this->redirect(array('admPerfil', 'id' => $id));
+            }
+        }
+
+        $this->render('admperfil', array('model' => $model, 'persona' => $personaModel));
     }
 
     public function actionPaso3($id) {
@@ -173,7 +230,7 @@ class ProfesoresController extends Controller {
 
         $this->extras = array('tipo' => $_GET['tipo'], 'id' => $id);
         $criterio->order = '(totalCalificaciones/vecescalificado) DESC';
-        
+
         $count = Profesores::model()->count($criterio);
         $pages = new CPagination($count);
         $pages->pageSize = 8;
@@ -223,14 +280,14 @@ class ProfesoresController extends Controller {
             $mensaje .= ' que hagan clases de "' . $item->conocimiento . '"';
             $criterio->with = array_merge($with, $this->filterCategory('subcategoria', $_POST['id']));
             $criterio->compare('conocimientos.idConocimiento', $_POST['id']);
-        }else{
+        } else {
             $criterio->with = $with;
         }
 
         $criterio->together = true;
         $criterio->distinct = true;
         $criterio->order = '(totalCalificaciones/vecescalificado) DESC';
-        
+
         if ($mensaje) {
             Yii::app()->user->setFlash('mensajeGlobal', $mensaje);
         }
@@ -267,7 +324,7 @@ class ProfesoresController extends Controller {
      * @param Profesores $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'profesores-form') {
+        if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
@@ -283,7 +340,7 @@ class ProfesoresController extends Controller {
         }
     }
 
-    private function filterLocation($type, $id) {
+    private function filterLocation($type) {
         switch ($type) {
             case 'region':
                 return array('personas.comuna.provincia.region');
@@ -294,7 +351,7 @@ class ProfesoresController extends Controller {
         }
     }
 
-    private function filterCategory($type, $id) {
+    private function filterCategory($type) {
         switch ($type) {
             case 'categoria':
                 return array('profesoresconocimientos.conocimientos.categoria');
@@ -315,4 +372,8 @@ class ProfesoresController extends Controller {
         echo $model->foto;
     }
 
+    private function porcPerfilCompletado($countPersona, $countProfesor){
+        return round((($countPersona + $countProfesor) * 100)/(self::TOTAL_CAMPOS_PERSONAS + self::TOTAL_CAMPOS_PROFESORES)); 
+    }
+    
 }

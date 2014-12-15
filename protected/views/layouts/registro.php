@@ -12,51 +12,43 @@
         <link href="<?php echo Yii::app()->request->baseUrl ?>/public/css/style.css" rel="stylesheet">
         <!-- /css -->
 
-        <!-- fuentes -->
-        <link href="http://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Abel" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css">
-        <!-- /fuentes -->
-
         <!-- font awesome -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <!--
-        <link href="<?php //echo Yii::app()->request->baseUrl          ?>/public/css/font-awesome.min.css" rel="stylesheet">
         <!-- /font awesome -->
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     </head>
     <body>
-        <div id="topHeader">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="topHeaderTitle">
-                            header top
+        <!-- main header -->
+        <header id="main-header">
+            <div id="top-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-6" style="text-align: right">                        
+                            Conéctate con nosotros
                         </div>
-                    </div>
-                    <div class="col-md-6 socialIcons">
-                        <ul class="pull-right">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        </ul>
+                        <div class="col-md-2 socialIcons pull-right">      
+                            <ul class="pull-right">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9 col-sm-offset-1">
-                        <div class="titulo">                          
-                            Profesores <img src="<?php echo Yii::app()->request->baseUrl ?>/public/img/icono.png" alt="icono" height="50"> Chile
+            <div id="banner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-11 col-md-offset-1">
+                            <h2>
+                                Regístrate en Profes Chile
+                            </h2>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
 
         <!-- contenido -->
         <section>
@@ -67,40 +59,13 @@
         <!-- /contenido -->
 
         <!-- footer -->
-        <footer id="footer">
-            <div class="footer-widget">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="single-widget">
-                                <h2>Servicios</h2>
-                                <ul class="nav nav-pills nav-stacked">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="single-widget">
-                                <h2>Profesores</h2>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="single-widget">
-                                <h2>Políticas de uso</h2>
-                                <ul class="nav nav-pills nav-stacked">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="single-widget">
-                                <h2>Acerca de Profesores Chile</h2>
-                            </div>
-                        </div>
+        <footer id="main-footer">
+            <div class="container">
 
-                    </div>
-                </div>
             </div>
         </footer>
         <!-- /footer -->
+
         <!-- scripts  -->
         <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
 
