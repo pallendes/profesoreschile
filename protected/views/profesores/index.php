@@ -15,10 +15,10 @@ $this->breadcrumbs = array(
                     <div class="panel panel-default item">
                         <div class="item-content">
                             <div class="panel-body">
-                                <?php if (!is_null($item->personas->foto)): ?>
+                                <?php if (!is_null($item->personas->foto && !empty($item->personas->foto))): ?>
                                     <?php echo CHtml::image(CController::createUrl('displaythumb') . '/' . $item->rut, '', array('class' => 'img-responsive imagen-perfil')) ?>
                                 <?php else: ?>
-                                    <img src="holder.js/100%x200/text:Imagen no disponible" alt="" />
+                                    <img src="holder.js/100%x200/text:Imagen no disponible" alt="Foto de perfil" />
                                 <?php endif ?>
                             </div>
                             <div class="panel-footer">

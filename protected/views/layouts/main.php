@@ -44,7 +44,7 @@
                         <div class="col-md-6">
                             <img src="<?php echo Yii::app()->request->baseUrl ?>/public/img/logo.png" alt="logo" class="img-responsive">
                         </div>
-                        <div class="col-md-6 full-height">
+                        <div class="col-md-6">
                             <div class="navegacion-header">
                                 <ul class="nav navbar-nav pull-right"> 
                                     <?php if (Yii::app()->user->isGuest): ?>

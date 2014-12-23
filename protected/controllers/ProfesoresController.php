@@ -1,11 +1,9 @@
-action<?php
+<?php
 
 class ProfesoresController extends Controller {
 
     public $mensaje;
     public $activeItem = 'profesores';
-    const TOTAL_CAMPOS_PERSONAS = 17;
-    const TOTAL_CAMPOS_PROFESORES = 9;
 
     /**
      * @return array action filters
@@ -26,7 +24,7 @@ class ProfesoresController extends Controller {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
                 'actions' => array('index', 'DisplayThumb', 'paso3', 'cargarconocimientos',
-                    'perfil', 'find', 'nuevocomentario', 'search', 'admPerfil', 'updatepersonaldata', 'UpdatePerfilDocente'),
+                    'perfil', 'find', 'nuevocomentario', 'search', 'admPerfil', 'updatepersonaldata'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -99,64 +97,46 @@ class ProfesoresController extends Controller {
         ));
     }
 
-    /*
-     * Muestra la vista de administracion del perfil
-     */
     public function actionAdmPerfil($id) {
+
         $this->layout = '//layouts/admPerfil';
 
         $model = $this->loadModel($id);
-        $persona = Personas::model()->findByPk($model->rut); 
-       
-        Yii::app()->user->setFlash('porcCompletado',
-                'Tienes un '.$this->porcPerfilCompletado(sizeof($persona->getAttributes()), sizeof($model->getAttributes())).'% de tu perfil Completado.');
-        $this->render('admperfil', array('model' => $model, 'persona' => $persona));
-        
-    }
-    
-    /*
-     * Actualiza los datos en el modelo Profesores
-     */
-    public function actionUpdatePerfilDocente($id){
-        $this->layout = '//layouts/admPerfil';
-        
-        $model = $this->loadModel($id);
-        
-        if(isset($_POST['Profesores'])){
-            $model->attributes = $_POST['Profesores'];
-            if($model->save(false)){
-                Yii::app()->user->setFlash('admPerfil', 'Los cambios de tu información personal han sido almacenados.');
-                $this->redirect(array('admPerfil', 'id' => $id));
-            }
-        }
-    }
-
-    /*
-     * Actualiza los datos en el modelo Personas puesto que el dicha tabla residen 
-     * los datos personales del profesor
-     */
-    public function actionUpdatePersonalData($id) {
-        $this->layout = '//layouts/admPerfil';
-
-        $model = $this->loadModel($id);
-        $personaModel = Personas::model()->findByPk($model->rut);
-
-        $this->performAjaxValidation($personaModel);
 
         if (isset($_POST['Personas'])) {
-            $personaModel->attributes = $_POST['Personas'];
-            if ($personaModel->save()) {
-                Yii::app()->user->setFlash('admPerfil', 'Los cambios de tu información personal han sido almacenados.');
-                $this->redirect(array('admPerfil', 'id' => $id));
+            $personasModel = Personas::model()->findByPk($model->rut);
+            $personasModel->attributes = $_POST['Personas'];
+            if ($personasModel->save()) {
+                $this->redirect(array('view', 'id' => $personasModel->rut));
             }
+            //$this->redirect(Yii::app()->createUrl('personas/update', array('id' => $model->rut)));
         }
 
-        $this->render('admperfil', array('model' => $model, 'persona' => $personaModel));
+        $this->render('admperfil', array('model' => $model));
+    }
+
+    public function actionUpdatePersonalData($id) {
+        $this->layout = '//layouts/admPerfil';
+        
+        $profesor = Profesores::model()->findByPk($id);
+        
+        $model = Personas::model()->findByPk($profesor->rut);
+        
+        $this->performAjaxValidation($model);
+
+        if (isset($_POST['Personas'])) {
+            $model->attributes = $_POST['Personas'];
+            if ($model->save()) {
+                $this->redirect(array('view', 'id' => $model->rut));
+            }
+        }
+        
+        $this->render('admperfil', array('model' => $profesor));
     }
 
     public function actionPaso3($id) {
 
-        $this->layout = '//layouts/registro';
+        $this->layout = '//layouts/registro-nobanner';
         $model = Profesores::model()->findByAttributes(array('rut' => $id));
 
         $this->performAjaxValidation($model);
@@ -340,7 +320,7 @@ class ProfesoresController extends Controller {
         }
     }
 
-    private function filterLocation($type) {
+    private function filterLocation($type, $id) {
         switch ($type) {
             case 'region':
                 return array('personas.comuna.provincia.region');
@@ -351,7 +331,7 @@ class ProfesoresController extends Controller {
         }
     }
 
-    private function filterCategory($type) {
+    private function filterCategory($type, $id) {
         switch ($type) {
             case 'categoria':
                 return array('profesoresconocimientos.conocimientos.categoria');
@@ -372,8 +352,4 @@ class ProfesoresController extends Controller {
         echo $model->foto;
     }
 
-    private function porcPerfilCompletado($countPersona, $countProfesor){
-        return round((($countPersona + $countProfesor) * 100)/(self::TOTAL_CAMPOS_PERSONAS + self::TOTAL_CAMPOS_PROFESORES)); 
-    }
-    
 }

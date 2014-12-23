@@ -37,7 +37,7 @@ $this->breadcrumbs = array(
 
             <p class="note">Campos con <span class="required">*</span> son obligatorios.</p>
 
-            <div class="form-gorup">
+            <div class="form-group">
                 <?php echo $form->labelEx($model, 'username'); ?>
                 <?php echo $form->textField($model, 'username', array('class' => 'form-control')); ?>
                 <?php echo $form->error($model, 'username', array('class' => 'text-danger')); ?>

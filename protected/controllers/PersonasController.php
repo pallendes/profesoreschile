@@ -37,7 +37,17 @@ class PersonasController extends Controller {
             ),
         );
     }
-    
+
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id) {
+        $this->render('view', array(
+            'model' => $this->loadModel($id),
+        ));
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -58,9 +68,8 @@ class PersonasController extends Controller {
                 $usuario->rut = $model->rut;
                 $usuario->idEstadoCuenta = 1;
                 $usuario->save(false);
-                
-                Yii::app()->user->setFlash('registroExitoso', $model->usuario);
-                $this->refresh();
+             
+                $this->render('registroOk');
             }
         }
 
@@ -85,7 +94,7 @@ class PersonasController extends Controller {
                 $profesores->rut = $model->rut;
                 $profesores->idEstadoCuenta = 1;
                 $profesores->save(false);
-
+                $this->layout = '//layouts/registro-nobanner';
                 $this->redirect(CController::createUrl('personas/paso2/' . $model->rut));
             }
         }

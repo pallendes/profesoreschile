@@ -4,7 +4,7 @@
 ?>
 <div class="row">
     <div class="col-sm-12">
-        <h2>Paso 3. Crea un perfil de profesor</h2>
+        <h2 class="color-text">Paso 3. Crea un perfil de profesor</h2>
     </div>
 </div>
 <hr>
@@ -88,9 +88,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-inline form-gorup col-sm-12">
-                    <?php echo CHtml::dropDownList('conocimientos', '', array(), array('class' => 'form-control', 'prompt' => 'Seleccione...', 'style' => 'width:80%', 'id' => 'conocimientos')); ?>
-                    &nbsp; <button type="button" class="btn btn-default boton" id="btnAgregar"><i class="fa fa-plus"></i> Agregar</button>
+                <div class="form-inline form-gorup">
+                    <div class="col-sm-9">
+                        <?php echo CHtml::dropDownList('conocimientos', '', array(), array('class' => 'form-control', 'prompt' => 'Seleccione...', 'style' => 'width:100%', 'id' => 'conocimientos')); ?>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-primary pull-right" id="btnAgregar"><i class="fa fa-plus"></i> Agregar</button>
+                    </div>
                 </div>
             </div>
             <br>
@@ -102,7 +106,7 @@
             <div class="row" id="materiasSeleccionadas">
                 <?php if (isset($_POST['conocimientos']) && $_POST['conocimientos'] != ''): ?>
                     <?php foreach ($_POST['conocimientos'] as $dato) : ?>
-                        <div class="col-md-3 item-materia" onclick="remover(this)">
+                        <div class="col-md-4 item-materia" onclick="remover(this)">
                             <i class="fa fa-remove"></i>
                             <?php
                             $conocimiento = Conocimientos::model()->findByPk($dato);
@@ -113,11 +117,12 @@
                     <?php endforeach; ?>
                 <?php endif ?>
             </div>
+            <p></p>
+            <div class="row form-group col-sm-12">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+            </div>
+            <?php $this->endWidget(); ?>
         </div>
-        <div class="row col-sm-12">
-            <button type="submit" class="btn btn-default boton  pull-right">Guardar</button>
-        </div>
-        <?php $this->endWidget(); ?>
     </section>
 </div>
 
@@ -128,10 +133,9 @@
     }
 
     $('#btnAgregar').on('click', function() {
-        var div = $('<div onclick="remover(this)"><i class="fa fa-remove"></i> '
+        var div = $('<div onclick="remover(this)" class="col-sm-4  materias"><div class="item-materia"><i class="fa fa-remove"></i> '
                 + $('#conocimientos').children('option').filter(':selected').text()
-                + '</div>')
-                .addClass('col-md-3 item-materia');
+                + '</div></div>');
 
         var campo = $('<input>').attr('type', 'hidden')
                 .attr('name', 'conocimientos[]')

@@ -1,0 +1,13 @@
+{
+    "name": "vendor/profesores-chile",
+    "description": "Description of project ProfesoresChile.",
+    "authors": [
+        {
+            "name": "Belial",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit-story": "dev-master"
+    }
+}

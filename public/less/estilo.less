@@ -4,46 +4,47 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 28-11-2014, 11:44:26 AM
+    Created on : 23-12-2014, 02:50:23 PM
     Author     : Belial
 */
+
+
+@main-color: #f15725;
+@gris-claro: #696763;
+@gris: #f2f2f2;
 
 body{
     line-height: 1.6;
 }
 
 /*******************************************************************************
-*                                   Header
+*                              Header
 *******************************************************************************/
 
 #top-header{
-    background: none repeat scroll 0 0 #f2f2f2;
+    background: none repeat scroll 0 0 @gris;
     font-size: 12px;
     padding-top: 5px;
-    color: #000;
-}
-
-#top-header ul{
-    list-style: none;
-    margin-bottom: 5px;
-}
-
-#top-header ul li{
-    display: inline;
-    margin: 0 10px 0 0;
-    vertical-align: baseline;
+    color: black;
+    ul{
+        list-style: none;
+        margin-bottom: 5px;
+        li{
+            display: inline;
+            margin: 0 10px 0 0;
+            vertical-align: baseline;
+        }
+    }
 }
 
 .socialIcons{
     font-size: 15px;
-}
-
-.socialIcons a{
-    color: black;
-}
-
-.socialIcons a:hover{
-    color: #f15725;
+    a{
+        color: black;
+        &:hover{
+            color: @main-color;
+        }
+    }
 }
 
 #banner{
@@ -53,40 +54,35 @@ body{
 .navegacion-header{
     margin-top: 15px;
     margin-right: 10px;
-}
-
-.navegacion-header ul li {
-    display:inline-block;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.navegacion-header ul li:last-child {
-    padding-right: 0;
-}
-
-.navegacion-header ul li a {
-    background: #FFFFFF;
-    color: #000;
-    font-size: 15px;
-    padding:0;
-    padding-right: 0;
-    margin-top: 20px;
-}
-
-
-.navegacion-header ul li a i{
-    margin-right:3px;
-}
-
-.navegacion-header ul li a:hover {
-    color:#f15725;
-    background:#fff;
-}
-
-.navegacion-header ul li a.active{
-    background:none;
-    color:#f15725;
+    ul{ 
+        li {
+            display:inline-block;
+            padding-left: 15px;
+            padding-right: 15px;
+            a {
+                background: white;
+                color: black;
+                font-size: 15px;
+                padding:0;
+                padding-right: 0;
+                margin-top: 20px;
+                i{
+                    margin-right:3px;
+                }
+                &:hover {
+                    color:@main-color;
+                    background:#fff;
+                }
+                &.active{
+                    background:none;
+                    color:#f15725;
+                }
+            }
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
 }
 
 #main-carousel{
@@ -98,23 +94,19 @@ body{
 *******************************************************************************/
 .service-item {
     text-align: center;
-    background: #fff;
-}
-
-.service-item a{
-    color: grey;
-}
-
-.service-item .service-item-text{
-    padding: 10px;
-}
-
-.service-item .thumbnail{
-    border-radius: 0;
-}
-
-.service-item a:hover, .service-item a:focus{
-    text-decoration: none;
+    background: white;
+    a{
+        color: grey;
+        &:hover, &:focus{
+            text-decoration: none;
+        }
+    }
+    .service-item-text{
+        padding: 10px;
+    }
+    .thumbnail{
+        border-radius: 0;
+    }
 }
 
 /*******************************************************************************
@@ -123,39 +115,40 @@ body{
 .informacion-perfil{
     overflow: hidden;
     position: relative;
-}
-
-.informacion-perfil span {
-    display: inline-block;
-    margin-bottom: 8px;
+    span {
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+    p{
+        text-align: left;
+    }
 }
 
 .informacion-perfil-contratar{
     padding: 10px 10px 10px 0;
+    span {
+        color: @main-color;
+        float: left;
+        font-size: 30px;
+        font-weight: 700;
+        margin-top: -10px;
+        margin-right: 20px;
+    }
 }
 
-.informacion-perfil p{
-    text-align: left;
-}
-
-.informacion-perfil-contratar span {
-    color: #f15725;
-    float: left;
-    font-size: 30px;
-    font-weight: 700;
-    margin-top: -10px;
-    margin-right: 20px;
-}
-
-.perfil-stars .stars ul{
-    text-align: left;
-    padding-left: 0;
+.perfil-stars{
+    .stars{
+        ul{
+            text-align: left;
+            padding-left: 0;
+        }
+    }
 }
 
 .titulo-perfil{
-    background-color: #f15725;
+    background-color: @main-color;
     padding: 5px;
-    color: #fff;
+    color: white;
     font-size: 10px;
     position:absolute;
     top:0;
@@ -169,51 +162,45 @@ body{
 .perfil-tab-content{
     padding: 20px;
     margin-bottom: 30px;
-}
-
-.perfil-tab-content ul {
-    background: #FFFFFF;
-    border: 0 none;
-    list-style: none outside none;
-    margin: 0 0 20px;
-    padding: 0;
-}
-
-.perfil-tab-content  ul  li {
-    display:inline-block;
-}
-
-.perfil-tab-content ul li a {
-    color: #696763;
-    display: block;
-    font-size: 14px;
-    padding-right: 15px;
-    text-decoration: none;
-}
-
-.perfil-tab-content ul li a i{
-    color:#f15725;
-    padding-right:8px;
-}
-
-.perfil-tab-content ul li a:hover{
-    background:#fff;
-    color:#f15725;
-}
-
-.perfil-tab-content .respuesta{
-    margin-left: 30px;
-    padding-left: 10px;
-    border-left: 5px solid #f15725;
+    ul {
+        background: white;
+        border: 0 none;
+        list-style: none outside none;
+        margin: 0 0 20px;
+        padding: 0;
+        li {
+            display:inline-block;
+            a {
+                color: @gris-claro;
+                display: block;
+                font-size: 14px;
+                padding-right: 15px;
+                text-decoration: none;
+                i{
+                    color: @main-color;
+                    padding-right:8px;
+                }
+                &:hover{
+                    background: white;
+                    color: @main-color;
+                }
+            }
+        }
+    }
+    .respuesta{
+        margin-left: 30px;
+        padding-left: 10px;
+        border-left: 5px solid #f15725;
+    }
 }
 
 /*******************************************************************************
 *                              Registro
 *******************************************************************************/
 .registro-o{ 
-    background: #f15725;
+    background: @main-color;
     border-radius: 40px;
-    color: #FFFFFF;
+    color: white;
     font-size: 20px;
     height: 50px;
     line-height: 50px;
@@ -223,7 +210,7 @@ body{
 }
 
 #banner h2{
-    color: #f15725; 
+    color: @main-color; 
 }
 
 /*******************************************************************************
@@ -407,6 +394,10 @@ input[type=number]:focus,
     color: #666666;
 }
 
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    border-top: 0 none;
+}
+
 /*******************************************************************************
 *                            Footer
 *******************************************************************************/
@@ -423,57 +414,82 @@ input[type=number]:focus,
     text-align: center;
 }
 
-/*
-* main-sidebar
-*/
-#main-sidebar h2{
-    color: #f15725;
-    margin-top: 5px;
+.color-text{
+    color: @main-color;
 }
 
-.panel-materias .panel{
-    background-color: #fff;
-    border: 0 none;
+#main-sidebar{
+    h2{
+        color: #f15725;
+        margin-top: 5px;
+    }
 }
 
-.panel-group .panel-heading + .panel-collapse .panel-body {
-    border-top: 0 none;
+.panel-materias{
+    .panel{
+        background-color: #fff;
+        border: 0 none;
+    }
 }
 
-#materia-sidebar .panel{
-    margin-bottom: 5px;
+#materia-sidebar{
+    .panel{
+        margin-bottom: 5px;
+    }
 }
 
-#materia-sidebar .panel-default .panel-heading .panel-title a {
-    color: #000;
-    text-decoration: none;
-    text-transform: uppercase;
+#materia-sidebar{ 
+    .panel-default{ 
+        .panel-heading{
+            .panel-title{
+                a {
+                    color: black;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    &:hover{
+                        color: @main-color;
+                    }
+                }
+            }
+        }
+    }
 }
 
-#materia-sidebar .panel-default .panel-heading .panel-title a:hover {
-    color: #f15725;
+.materias{
+    margin-bottom: 10px;
+    .item-materia{
+        border: 2px solid @main-color;
+        color: black;
+        border-radius: 3px;
+        padding: 10px;
+    } 
 }
 
-#materia-sidebar .badge {
-    background:none;
-    border-radius: 10px;
-    color: #000;
-    display: inline-block;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 1;
-    min-width: 10px;
-    padding: 3px 7px;
-    text-align: center;
-    vertical-align: baseline;
-    white-space: nowrap;
+#materia-sidebar{
+    .badge {
+        background:none;
+        border-radius: 10px;
+        color: #000;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 1;
+        min-width: 10px;
+        padding: 3px 7px;
+        text-align: center;
+        vertical-align: baseline;
+        white-space: nowrap;
+    }
 }
 
-
-#materia-sidebar .panel-default .panel-heading{
-    background-color: #fff;
-    padding: 5px 5px;
-    border-color: transparent;
+#materia-sidebar{
+    .panel-default{
+        .panel-heading{
+            background-color: #fff;
+            padding: 5px 5px;
+            border-color: transparent;
+        }
+    }
 }
 
 #materia-sidebar .panel-body ul{
